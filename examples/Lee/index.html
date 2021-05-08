@@ -6,15 +6,39 @@
 </head>
 <body>
   <div id="app">
-    {{ msg }}
+    <npm-comp
+      @hook:before-create="fatherBeforeCreate"
+      @hook:created="fatherCreated"
+      @hook:beforeMount="fatherBeforeMount"
+      @hook:mounted="fatherMounted"
+    />
   </div>
   <script src="../../dist/vue.js"></script>
   <script>
-    debugger
+    Vue.component('npm-comp', {
+      template: '<div>我是子组件</div>',
+      mounted() {
+        console.log('======= %c 子组件 mounted', 'color: blue;');
+      }
+    })
     new Vue({
       el: '#app',
       data: {
         msg: 'hello vue'
+      },
+      methods: {
+        fatherBeforeCreate () {
+          console.log('======= %c 父组件 fatherBeforeCreate', 'color: red;');
+        },
+        fatherCreated () {
+          console.log('======= %c 父组件 fatherCreated', 'color: red;');
+        },
+        fatherBeforeMount () {
+          console.log('======= %c 父组件 fatherBeforeMount', 'color: red;');
+        },
+        fatherMounted () {
+          console.log('======= %c 父组件 fatherMounted', 'color: red;');
+        }
       }
     })
   </script>
